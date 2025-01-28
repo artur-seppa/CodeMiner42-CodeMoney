@@ -7,8 +7,12 @@ export class Account {
       throw new Error('O nome não pode ser vazio.');
     }
 
-    if (isNaN(initialBalance) || initialBalance < 0) {
+    if (initialBalance < 0) {
       throw new Error('O saldo inicial deve ser um número não negativo.');
+    }
+
+    if (isNaN(initialBalance) || typeof initialBalance === 'string') {
+      throw new Error('O valor de saldo deve ser apenas de tipo Number.');
     }
 
     this.numAccount = this.generateNumberAccount();

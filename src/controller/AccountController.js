@@ -8,6 +8,10 @@ export class AccountController {
     this.accountView = new AccountView();
   }
 
+  getAccountCount() {
+    return this.AccountCollection.accounts.length;
+  }
+
   createAccount(name, initialBalance) {
     try {
       const account = new Account(name, initialBalance);
@@ -37,9 +41,5 @@ export class AccountController {
     } catch (error) {
       return this.accountView.renderError(error);
     }
-  }
-
-  getAccountCount() {
-    return this.AccountCollection.accounts.length;
   }
 }
