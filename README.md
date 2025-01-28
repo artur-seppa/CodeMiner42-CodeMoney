@@ -1,1 +1,1 @@
-# CodeMiner42-CodeMoney
+# CodeMoney

@@ -1,0 +1,25 @@
+{
+  "name": "codeminer42-codemoney",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "start": "node src/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artur-seppa/CodeMiner42-CodeMoney.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artur-seppa/CodeMiner42-CodeMoney/issues"
+  },
+  "homepage": "https://github.com/artur-seppa/CodeMiner42-CodeMoney#readme",
+  "devDependencies": {
+    "vitest": "^3.0.4"
+  }
+}
