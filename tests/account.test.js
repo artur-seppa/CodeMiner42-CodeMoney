@@ -7,22 +7,22 @@ describe('Account', () => {
     const account = new Account('Artur Seppa', 100);
     
     expect(account).toBeDefined();
-    expect(account.name).toBe('Artur Seppa');
-    expect(account.balance).toBe(100);
-    expect(account.numAccount).toBe('000001');
-    expect(account.createdAt).toBeInstanceOf(Date);
+    expect(account.getName()).toBe('Artur Seppa');
+    expect(account.getBalance()).toBe(100);
+    expect(account.getNumAccount()).toBe('000001');
+    expect(account.getCreatedAt()).toBeInstanceOf(Date);
   });
 
   it('Geracao de um numero de conta no formato correto', () => {
     const account = new Account('Artur Seppa');
     
-    expect(account.numAccount).toMatch(/^\d{6}$/);
+    expect(account.getNumAccount()).toMatch(/^\d{6}$/);
   });
 
   it('Deve criar uma conta com valor default igual a 0', () => {
     const account = new Account('Artur Seppa');
     
-    expect(account.balance).toBe(0);
+    expect(account.getBalance()).toBe(0);
   });
 
   it('Erro para name vazio', () => {
@@ -41,6 +41,6 @@ describe('Account', () => {
     const account1 = new Account('Solange Seppa');
     const account2 = new Account('Artur Seppa');
     
-    expect(account1.numAccount).not.toBe(account2.numAccount);
+    expect(account1.getNumAccount()).not.toBe(account2.getNumAccount());
   });
 });

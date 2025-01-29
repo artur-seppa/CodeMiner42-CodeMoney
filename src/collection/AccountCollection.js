@@ -1,18 +1,25 @@
 export class AccountCollection {
     constructor() {
-      this.accounts = [];
+        this.accounts = [];
     }
-  
+
     create(account) {
-      this.accounts.push(account);
-      return account;
+        this.accounts.push(account);
+        return account;
     }
-  
+
     findById(accountId) {
-      const account = this.accounts.find(acc => acc.numAccount === accountId);
-      if (!account) {
-        throw new Error('Account not found');
-      }
-      return account;
+        const account = this.accounts.find(acc => acc.getNumAccount() === accountId);
+        if (!account) {
+            throw new Error('Account not found');
+        }
+        return account;
     }
-  }
+
+    update(accountId, name) {
+        const account = this.findById(accountId);
+        account.setName(name);
+
+        return account;
+    }
+}

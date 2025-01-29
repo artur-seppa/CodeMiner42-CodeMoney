@@ -51,7 +51,6 @@ class AccountApp {
 
         try {
           const account = this.accountController.createAccount(name, balance)
-
           this.currentAccount = account;
           this.showAccountMenu();
         } catch (error) {

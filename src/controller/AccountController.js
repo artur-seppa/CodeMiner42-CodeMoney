@@ -15,7 +15,7 @@ export class AccountController {
   createAccount(name, initialBalance) {
     try {
       const account = new Account(name, initialBalance);
-      this.AccountCollection.create(account);
+      this.AccountCollection.create(account)
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
       return this.accountView.renderError(error);
@@ -24,10 +24,7 @@ export class AccountController {
 
   editAccount(accountId, name) {
     try {
-      const account = this.AccountCollection.findById(accountId);
-
-      account.setName(name);
-      this.AccountCollection.update(account);
+      const account = this.AccountCollection.update(accountId, name);
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
       return this.accountView.renderError(error);

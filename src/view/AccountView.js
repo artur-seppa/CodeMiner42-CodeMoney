@@ -1,10 +1,10 @@
 export class AccountView {
     renderAccountDetails(account) {
       return {
-        numberAccount: account.numAccount,
-        name: account.name,
-        balance: account.balance,
-        createdAt: account.createdAt
+        numberAccount: account.getNumAccount(),
+        name: account.getName(),
+        balance: account.getBalance(),
+        createdAt: account.getCreatedAt()
       };
     }
   
