@@ -18,7 +18,7 @@ export class AccountController {
       this.AccountCollection.create(account)
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      throw error; 
+      throw error;
     }
   }
 
@@ -27,7 +27,7 @@ export class AccountController {
       const account = this.AccountCollection.update(accountId, name, 'name');
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      return this.accountView.renderError(error);
+      throw error;
     }
   }
 
@@ -36,7 +36,7 @@ export class AccountController {
       const account = this.AccountCollection.update(accountId, deposit, 'deposit');
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      throw error; 
+      throw error;
     }
   }
 
@@ -45,7 +45,7 @@ export class AccountController {
       const account = this.AccountCollection.findById(accountId);
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      return this.accountView.renderError(error);
+      throw error;
     }
   }
 }

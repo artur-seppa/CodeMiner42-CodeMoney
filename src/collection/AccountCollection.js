@@ -25,15 +25,7 @@ export class AccountCollection {
             account.setName(value);
 
         } else if (type == 'deposit') {
-            if (value <= 0) {
-                throw new Error('O deposito tem que ser de valor maior do que zero.');
-            }
-
-            if (isNaN(value) || typeof value === 'string') {
-                throw new Error('O valor do deposito deve ser apenas do tipo Number.');
-            }
-
-            account.setBalance(account.getBalance() + value);
+            account.deposit(value);
         }
 
         return account;

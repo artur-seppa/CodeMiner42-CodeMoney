@@ -31,6 +31,20 @@ export class Account {
     return Account.#counter.toString().padStart(6, '0');
   }
 
+  deposit(deposit) {
+    if (deposit <= 0) {
+      throw new Error('O deposito tem que ser de valor maior do que zero.');
+    }
+
+    if (isNaN(deposit) || typeof deposit === 'string') {
+      throw new Error('O valor do deposito deve ser apenas do tipo Number.');
+    }
+
+    const newBalance = deposit + this.getBalance()
+
+    this.setBalance(newBalance);
+  }
+
   //setters
   setNumAccount(numAccount) {
     this.#numAccount = numAccount;
@@ -44,7 +58,7 @@ export class Account {
     this.#name = name;
   }
 
-  setBalance(balance = 0) {
+  setBalance(balance) {
     this.#balance = balance;
   }
 

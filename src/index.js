@@ -136,7 +136,7 @@ class AccountApp {
         this.showAccountMenu();
       } catch (error) {
         console.error('Erro ao realizar o deposito: ', error.message);
-        this.pause(this.showMainMenu);
+        this.pause(this.showAccountMenu);
       }
     });
   }
