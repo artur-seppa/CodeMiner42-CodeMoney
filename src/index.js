@@ -120,8 +120,8 @@ class AccountApp {
         this.currentAccount = account;
         this.showAccountMenu();
       } catch (error) {
-        console.error('Erro ao selecionar conta:', error.message);
-        this.pause(this.showMainMenu);
+        console.error('Erro ao atualizar conta:', error.message);
+        this.pause(this.showAccountMenu);
       }
     });
   }

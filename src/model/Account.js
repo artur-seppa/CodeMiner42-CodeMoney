@@ -37,6 +37,10 @@ export class Account {
   }
 
   setName(name) {
+    if (name == '' || name == undefined) {
+      throw new Error('O valor de nome do proprietário não deve ser vazio.');
+    }
+
     this.#name = name;
   }
 

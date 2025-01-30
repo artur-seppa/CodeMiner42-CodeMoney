@@ -9,7 +9,7 @@ export class AccountController {
   }
 
   getAccountCount() {
-    return this.AccountCollection.accounts.length;
+    return this.AccountCollection.renderLengthAccounts();
   }
 
   createAccount(name, initialBalance) {
@@ -18,7 +18,7 @@ export class AccountController {
       this.AccountCollection.create(account)
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      return this.accountView.renderError(error);
+      throw error; 
     }
   }
 
@@ -36,7 +36,7 @@ export class AccountController {
       const account = this.AccountCollection.update(accountId, deposit, 'deposit');
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
-      return this.accountView.renderError(error);
+      throw error; 
     }
   }
 
