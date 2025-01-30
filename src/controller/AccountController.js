@@ -24,7 +24,16 @@ export class AccountController {
 
   editAccount(accountId, name) {
     try {
-      const account = this.AccountCollection.update(accountId, name);
+      const account = this.AccountCollection.update(accountId, name, 'name');
+      return this.accountView.renderAccountDetails(account);
+    } catch (error) {
+      return this.accountView.renderError(error);
+    }
+  }
+
+  depositAccount(accountId, deposit) {
+    try {
+      const account = this.AccountCollection.update(accountId, deposit, 'deposit');
       return this.accountView.renderAccountDetails(account);
     } catch (error) {
       return this.accountView.renderError(error);

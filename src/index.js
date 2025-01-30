@@ -23,7 +23,7 @@ class AccountApp {
     if (this.accountController.getAccountCount() > 0) {
       console.log('2. Selecionar Conta');
     }
-    
+
     console.log('3. Sair');
 
     this.rl.question('Escolha uma opção: ', (choice) => {
@@ -32,7 +32,12 @@ class AccountApp {
           this.createAccountPrompt();
           break;
         case '2':
-          this.selectAccountPrompt();
+          if (this.accountController.getAccountCount() > 0) {
+            this.selectAccountPrompt();
+          } else {
+            console.log('Não há contas disponíveis.');
+            this.pause(this.showMainMenu);
+          }
           break;
         case '3':
           this.exit();
@@ -87,7 +92,8 @@ class AccountApp {
     console.log(`Proprietário: ${this.currentAccount.name}`);
     console.log(`Saldo: R$ ${this.currentAccount.balance.toFixed(2)}`);
     console.log('1. Editar Nome de Proprietário');
-    console.log('2. Voltar ao Menu Principal');
+    console.log('2. Realizar deposito na conta');
+    console.log('3. Voltar ao Menu Principal');
 
     this.rl.question('Escolha uma opção: ', (choice) => {
       switch (choice) {
@@ -95,6 +101,9 @@ class AccountApp {
           this.editNamePrompt(this.currentAccount.numberAccount);
           break;
         case '2':
+          this.depositPrompt(this.currentAccount.numberAccount);
+          break;
+        case '3':
           this.showMainMenu();
           break;
         default:
@@ -105,13 +114,28 @@ class AccountApp {
   }
 
   editNamePrompt(accountId) {
-    this.rl.question('Digite o novo nome de proprietário: ', (name) => {
+    this.rl.question('Digite o novo nome de proprietário da conta: ', (name) => {
       try {
         const account = this.accountController.editAccount(accountId, name);
         this.currentAccount = account;
         this.showAccountMenu();
       } catch (error) {
         console.error('Erro ao selecionar conta:', error.message);
+        this.pause(this.showMainMenu);
+      }
+    });
+  }
+
+  depositPrompt(accountId) {
+    this.rl.question('Digite o valor que deseja realizar o deposito: ', (value) => {
+      const deposit = value ? parseFloat(value) : 0;
+
+      try {
+        const account = this.accountController.depositAccount(accountId, deposit);
+        this.currentAccount = account;
+        this.showAccountMenu();
+      } catch (error) {
+        console.error('Erro ao realizar o deposito: ', error.message);
         this.pause(this.showMainMenu);
       }
     });

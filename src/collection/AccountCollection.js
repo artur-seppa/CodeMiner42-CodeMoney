@@ -16,9 +16,23 @@ export class AccountCollection {
         return account;
     }
 
-    update(accountId, name) {
+    update(accountId, value, type) {
         const account = this.findById(accountId);
-        account.setName(name);
+
+        if (type == 'name') {
+            account.setName(value);
+
+        } else if (type == 'deposit') {
+            if (value <= 0) {
+                throw new Error('O deposito tem que ser de valor maior do que zero.');
+            }
+
+            if (isNaN(value) || typeof value === 'string') {
+                throw new Error('O valor do deposito deve ser apenas do tipo Number.');
+            }
+
+            account.setBalance(account.getBalance() + value);
+        }
 
         return account;
     }
