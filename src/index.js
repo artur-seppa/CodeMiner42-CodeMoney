@@ -23,7 +23,7 @@ class AccountApp {
     if (this.accountController.getAccountCount() > 0) {
       console.log('2. Selecionar Conta');
     }
-    
+
     console.log('3. Sair');
 
     this.rl.question('Escolha uma opção: ', (choice) => {
@@ -111,8 +111,8 @@ class AccountApp {
         this.currentAccount = account;
         this.showAccountMenu();
       } catch (error) {
-        console.error('Erro ao selecionar conta:', error.message);
-        this.pause(this.showMainMenu);
+        console.error('Erro ao atualizar conta:', error.message);
+        this.pause(this.showAccountMenu);
       }
     });
   }

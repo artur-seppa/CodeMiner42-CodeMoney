@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { Account } from '../src/model/Account.js';
 
 describe('Account', () => {
-  it('Criacao de uma conta valida', () => {
+  it('Should create a valid account', () => {
     const account = new Account('Artur Seppa', 100);
     
     expect(account).toBeDefined();
@@ -13,31 +13,38 @@ describe('Account', () => {
     expect(account.getCreatedAt()).toBeInstanceOf(Date);
   });
 
-  it('Geracao de um numero de conta no formato correto', () => {
+  it('Should generate an account number in the correct format', () => {
     const account = new Account('Artur Seppa');
     
     expect(account.getNumAccount()).toMatch(/^\d{6}$/);
   });
 
-  it('Deve criar uma conta com valor default igual a 0', () => {
+  it('Should create an account with default balance of 0', () => {
     const account = new Account('Artur Seppa');
     
     expect(account.getBalance()).toBe(0);
   });
 
-  it('Erro para name vazio', () => {
+  it('Should throw an error for creating an account with an empty name', () => {
     expect(() => new Account('')).toThrow('O nome não pode ser vazio.');
     expect(() => new Account('  ')).toThrow('O nome não pode ser vazio.');
     expect(() => new Account()).toThrow('O nome não pode ser vazio.');
   });
 
-  it('Erro para valor de balance invalido', () => {
+  it('Should throw an error for updating an account with an empty name', () => {
+    const account = new Account('Artur Seppa', 100);
+
+    expect(() => account.setName('')).toThrow('O valor de nome do proprietário não deve ser vazio.');
+    expect(() => account.setName(undefined)).toThrow('O valor de nome do proprietário não deve ser vazio.');
+  });
+
+  it('Should throw an error for invalid balance value', () => {
     expect(() => new Account('Artur Seppa', -100)).toThrow('O saldo inicial deve ser um número não negativo.');
     expect(() => new Account('Artur Seppa', NaN)).toThrow('O valor de saldo deve ser apenas de tipo Number.');
     expect(() => new Account('Artur Seppa', '2')).toThrow('O valor de saldo deve ser apenas de tipo Number.');
   });
 
-  it('Generate unique account numbers', () => {
+  it('Should generate unique account numbers', () => {
     const account1 = new Account('Solange Seppa');
     const account2 = new Account('Artur Seppa');
     
