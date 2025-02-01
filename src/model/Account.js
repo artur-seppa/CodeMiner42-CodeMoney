@@ -45,6 +45,24 @@ export class Account {
     this.setBalance(newBalance);
   }
 
+  transfer(transfer) {
+    if (isNaN(transfer) || typeof transfer === 'string') {
+      throw new Error('A transferência deve ser apenas do tipo Number.');
+    }
+
+    if (transfer <= 0) {
+      throw new Error('A transferência tem que ser de valor maior do que zero.');
+    }
+
+    if (this.getBalance() < transfer) {
+      throw new Error('Fundo insuficiente');
+    }
+
+    const newBalance = this.getBalance() - transfer;
+
+    this.setBalance(newBalance);
+  }
+
   //setters
   setNumAccount(numAccount) {
     this.#numAccount = numAccount;

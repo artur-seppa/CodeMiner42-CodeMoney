@@ -40,6 +40,15 @@ export class AccountController {
     }
   }
 
+  transferAccount(fromAccountId, toAccountId, transfer) {
+    try {
+      const account = this.AccountCollection.transfer(fromAccountId, toAccountId, transfer);
+      return this.accountView.renderAccountDetails(account);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   getAccountDetails(accountId) {
     try {
       const account = this.AccountCollection.findById(accountId);

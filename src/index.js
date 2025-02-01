@@ -67,7 +67,7 @@ class AccountApp {
   }
 
   selectAccountPrompt() {
-    this.rl.question('Digite o ID da conta: ', (accountId) => {
+    this.rl.question('Digite o número da conta: ', (accountId) => {
       try {
         const account = this.accountController.getAccountDetails(accountId);
 
@@ -93,7 +93,8 @@ class AccountApp {
     console.log(`Saldo: R$ ${this.currentAccount.balance.toFixed(2)}`);
     console.log('1. Editar Nome de Proprietário');
     console.log('2. Realizar deposito na conta');
-    console.log('3. Voltar ao Menu Principal');
+    console.log('3. Realizar transferencia para uma conta');
+    console.log('4. Voltar ao Menu Principal');
 
     this.rl.question('Escolha uma opção: ', (choice) => {
       switch (choice) {
@@ -104,6 +105,9 @@ class AccountApp {
           this.depositPrompt(this.currentAccount.numberAccount);
           break;
         case '3':
+          this.transferPrompt(this.currentAccount.numberAccount);
+          break;
+        case '4':
           this.showMainMenu();
           break;
         default:
@@ -138,6 +142,23 @@ class AccountApp {
         console.error('Erro ao realizar o deposito: ', error.message);
         this.pause(this.showAccountMenu);
       }
+    });
+  }
+
+  transferPrompt(fromAccountId) {
+    this.rl.question('Digite o número da conta que deseja realizar a transferência: ', (toAccountId) => {
+      this.rl.question('Digite o valor que deseja realizar transferir: ', (value) => {
+        try {
+          const transfer = value ? parseFloat(value) : 0;
+          
+          const account = this.accountController.transferAccount(fromAccountId, toAccountId, transfer);
+          this.currentAccount = account;
+          this.showAccountMenu();
+        } catch (error) {
+          console.error('Erro ao realizar o deposito: ', error.message);
+          this.pause(this.showAccountMenu);
+        }
+      });
     });
   }
 
