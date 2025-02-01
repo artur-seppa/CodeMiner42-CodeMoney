@@ -51,7 +51,7 @@ export class Account {
   }
 
   setName(name) {
-    if (name == '' || name == undefined) {
+    if (name == '' || name == ' ' || name == undefined) {
       throw new Error('O valor de nome do proprietário não deve ser vazio.');
     }
 
@@ -73,10 +73,6 @@ export class Account {
 
   getName() {
     return this.#name;
-  }
-
-  getBalance() {
-    return this.#balance;
   }
 
   getCreatedAt() {

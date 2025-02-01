@@ -1,4 +1,3 @@
-// account.test.js
 import { describe, it, expect } from 'vitest';
 import { Account } from '../src/model/Account.js';
 
