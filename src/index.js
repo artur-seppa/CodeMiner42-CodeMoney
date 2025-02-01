@@ -1,9 +1,12 @@
 import { AccountController } from './controller/AccountController.js';
+import { TransactionController } from './controller/TransactionController.js';
 import readline from 'readline';
 
 class AccountApp {
   constructor() {
     this.accountController = new AccountController();
+    this.transactionController = new TransactionController();
+
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
@@ -86,7 +89,6 @@ class AccountApp {
   }
 
   showAccountMenu() {
-    console.clear();
     console.log('===== MENU DA CONTA =====');
     console.log(`Conta: ${this.currentAccount.numberAccount}`);
     console.log(`Proprietário: ${this.currentAccount.name}`);
@@ -94,7 +96,8 @@ class AccountApp {
     console.log('1. Editar Nome de Proprietário');
     console.log('2. Realizar deposito na conta');
     console.log('3. Realizar transferencia para uma conta');
-    console.log('4. Voltar ao Menu Principal');
+    console.log('4. Visualizar extrato da conta');
+    console.log('5. Voltar ao Menu Principal');
 
     this.rl.question('Escolha uma opção: ', (choice) => {
       switch (choice) {
@@ -108,6 +111,9 @@ class AccountApp {
           this.transferPrompt(this.currentAccount.numberAccount);
           break;
         case '4':
+          this.extractPrompt(this.currentAccount.numberAccount);
+          break;
+        case '5':
           this.showMainMenu();
           break;
         default:
@@ -136,6 +142,8 @@ class AccountApp {
 
       try {
         const account = this.accountController.depositAccount(accountId, deposit);
+        this.transactionController.createTransaction(accountId, null, deposit, 'deposit');
+
         this.currentAccount = account;
         this.showAccountMenu();
       } catch (error) {
@@ -150,8 +158,10 @@ class AccountApp {
       this.rl.question('Digite o valor que deseja realizar transferir: ', (value) => {
         try {
           const transfer = value ? parseFloat(value) : 0;
-          
+
           const account = this.accountController.transferAccount(fromAccountId, toAccountId, transfer);
+          this.transactionController.createTransaction(fromAccountId, toAccountId, transfer, 'transfer');
+
           this.currentAccount = account;
           this.showAccountMenu();
         } catch (error) {
@@ -160,6 +170,19 @@ class AccountApp {
         }
       });
     });
+  }
+
+  extractPrompt(accountId) {
+    try {
+      const extract = this.transactionController.getTransactionsById(accountId);
+      console.log('===== EXTRATO =====');
+      console.log(extract)
+
+      this.showAccountMenu();
+    } catch (error) {
+      console.error('Erro ao visualizar o extrato: ', error.message);
+      this.pause(this.showAccountMenu);
+    }
   }
 
   pause(nextAction) {
