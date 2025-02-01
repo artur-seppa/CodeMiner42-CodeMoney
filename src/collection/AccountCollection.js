@@ -33,7 +33,7 @@ export class AccountCollection {
     }
 
     transfer(fromAccountId, toAccountId, value) {
-        if (fromAccountId == toAccountId) {
+        if (fromAccountId === toAccountId) {
             throw new Error('A transferência não pode ser feita para a mesma conta.');
         }
 
